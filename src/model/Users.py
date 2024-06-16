@@ -26,5 +26,13 @@ class CreateUser(BaseModel):
     dep_id: str
 
 
+class UpdateUser(BaseModel):
+    id: int
+    role_id: int
+    firstName: str
+    lastName: str
+    dep_id: str
+
+
 class Users(BaseModel):
     users: List[ItemUsers]

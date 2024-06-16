@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from src.model.Users import Users, ReturnOneUser, CreateUser
+from src.model.Users import Users, ReturnOneUser, CreateUser, UpdateUser
 from src.config import base_url_mock, auth_token
 import requests
 
@@ -34,10 +34,21 @@ def createUser(request_data: CreateUser):
     except Exception as e:
         print(e)
 
-# @app.post("/updateUser")
-#
-#
-# @app.post("/partUpdateUser/{id}")
+@app.put("/updateUser", response_model=ReturnOneUser)
+def updateUser(request_data: UpdateUser):
+    try:
+        headers = {
+            'Authorization': auth_token,
+            'Content - Type': 'application/json'
+        }
+        url = f'{base_url_mock}/updateUser'
+        response_result = requests.put(url, headers=headers, data=request_data.dict())
+
+        return response_result.json()
+    except Exception as e:
+        print(e)
+
+# @app.patch("/partUpdateUser/{id}")
 #
 #
 # @app.post("/deleteUser/{id}")
