@@ -1,12 +1,9 @@
 from fastapi import FastAPI
-from src.model.Users import Users
+from src.model.Users import Users, ReturnOneUser, CreateUser
 from src.config import base_url_mock, auth_token
 import requests
 
-
-
 app = FastAPI()
-
 
 
 @app.get("/getUsers", response_model=Users)
@@ -23,10 +20,20 @@ def getUsers():
         print(e)
 
 
+@app.post("/createUser", response_model=ReturnOneUser)
+def createUser(request_data: CreateUser):
+    try:
+        headers = {
+            'Authorization': auth_token,
+            'Content - Type': 'application/json'
+        }
+        url = f'{base_url_mock}/createUser'
+        response_result = requests.post(url, headers=headers, data=request_data.dict())
 
-# @app.post("/createUser")
-#
-#
+        return response_result.json()
+    except Exception as e:
+        print(e)
+
 # @app.post("/updateUser")
 #
 #
