@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from pydantic import BaseModel, RootModel
 
@@ -27,11 +27,16 @@ class CreateUser(BaseModel):
 
 
 class UpdateUser(BaseModel):
-    id: int
     role_id: int
     firstName: str
     lastName: str
     dep_id: str
+
+class PartUpdateUser(BaseModel):
+    role_id: Optional[int]
+    firstName: Optional[str]
+    lastName: Optional[str]
+    dep_id: Optional[str]
 
 
 class Users(BaseModel):
